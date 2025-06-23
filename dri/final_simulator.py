@@ -113,11 +113,11 @@ class FinalAdSimulator:
             if platform.system().lower() == 'linux':
                 co.set_argument('--no-sandbox')
                 co.set_argument('--headless=new')
+                co.set_argument(f'--user-data-dir=/tmp/dp_user_{os.getpid()}')
                 co.set_argument('--remote-debugging-port=0')  # 自动分配端口
-                # co.set_user_data_dir('/tmp/dp_user_' + str(os.getpid()))
             
             # 创建页面实例
-            self.page = ChromiumPage(addr_or_opts=co)
+            self.page = ChromiumPage(co)
             
             # 移除反检测JS注入
             # if self.page:
