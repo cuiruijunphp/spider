@@ -11,6 +11,7 @@ import random
 import logging
 import sys
 import os
+import datetime
 from typing import Optional, Dict, List, Any
 from DrissionPage import ChromiumPage, ChromiumOptions
 
@@ -19,11 +20,14 @@ sys.path.append(os.path.join(os.path.dirname(__file__), 'config'))
 from devices import PC_USER_AGENTS, ANDROID_DEVICES, IOS_DEVICES, IPAD_DEVICES
 
 # 配置日志
+log_dir = os.path.join(os.path.dirname(__file__), 'log')
+os.makedirs(log_dir, exist_ok=True)
+log_file = os.path.join(log_dir, datetime.datetime.now().strftime('%Y-%m-%d') + '.log')
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler('final_simulator.log', encoding='utf-8'),
+        logging.FileHandler(log_file, encoding='utf-8'),
         logging.StreamHandler()
     ]
 )
@@ -157,6 +161,61 @@ class FinalAdSimulator:
             
         except Exception as e:
             logger.debug(f"人类行为模拟出错: {e}")
+    
+    def get_a_tag_xpaths(self) -> list:
+        """收集页面所有<a>标签的xpath列表"""
+        a_xpaths = self.page.run_js('''
+            var xpaths = [];
+            var all = document.getElementsByTagName('a');
+            for (var i = 0; i < all.length; i++) {
+                var el = all[i];
+                var xpath = '';
+                var elem = el;
+                while (elem && elem.nodeType === 1) {
+                    var sibCount = 0;
+                    var sibIndex = 1;
+                    for (var sib = elem.previousSibling; sib; sib = sib.previousSibling) {
+                        if (sib.nodeType === 1 && sib.nodeName === elem.nodeName) {
+                            sibCount++;
+                        }
+                    }
+                    if (sibCount > 0) {
+                        sibIndex = sibCount + 1;
+                    }
+                    xpath = '/' + elem.nodeName.toLowerCase() + (sibIndex > 1 ? '[' + sibIndex + ']' : '') + xpath;
+                    elem = elem.parentNode;
+                }
+                xpaths.push(xpath);
+            }
+            return xpaths;
+        ''')
+        return a_xpaths or []
+    
+    def simulate_entry_behavior(self):
+        """用户进入页面时的三种初始行为：点击<a>、下拉、不操作"""
+        action = random.choice(['click_a', 'scroll', 'none'])
+        logger.info(f"初始行为选择: {action}")
+        if action == 'click_a':
+            a_xpaths = self.get_a_tag_xpaths()
+            if a_xpaths:
+                xpath = random.choice(a_xpaths)
+                logger.info(f"随机点击<a>标签，xpath: {xpath}")
+                try:
+                    self.page.ele(f'xpath:{xpath}').click()
+                    time.sleep(3)  # 等待跳转页面加载
+                    self.page.back()  # 返回原页面
+                    time.sleep(1)
+                except Exception as e:
+                    logger.warning(f"点击<a>标签失败: {e}")
+            else:
+                logger.info("页面无<a>标签，跳过点击")
+        elif action == 'scroll':
+            scroll_y = random.randint(200, 800)
+            logger.info(f"初始行为：下拉滚动{scroll_y}像素")
+            self.page.run_js(f'window.scrollBy(0, {scroll_y});')
+            time.sleep(random.uniform(0.5, 1.5))
+        else:
+            logger.info("初始行为：不做任何操作")
     
     def wait_for_ad_frame_with_content(self, timeout: int = AD_FRAME_TIMEOUT) -> bool:
         """等待广告iframe出现并包含可点击内容"""
@@ -630,47 +689,39 @@ class FinalAdSimulator:
         if not self.page:
             logger.error("❌ 页面未初始化")
             return False
-            
         try:
             logger.info("🚀 开始广告点击模拟...")
-            
             # 1. 打开目标网站
             logger.info(f"打开目标网站: {TARGET_URL}")
             self.page.get(TARGET_URL)
             time.sleep(3)
             logger.info("✅ 网站加载完成")
-            
-            # 2. 模拟人类行为
+            # 2. 初始三种行为
+            self.simulate_entry_behavior()
+            # 3. 模拟人类行为
             self.simulate_human_behavior()
-            
-            # 3. 等待广告iframe出现并包含内容
+            # 4. 等待广告iframe出现并包含内容
             if not self.wait_for_ad_frame_with_content():
                 logger.warning("⚠️ 未找到广告iframe")
                 return False
-            
-            # 4. 再次模拟人类行为
+            # 5. 再次模拟人类行为
             self.simulate_human_behavior()
-            
-            # 5. 用户选择是否点击广告（80%概率）
+            # 6. 用户选择是否点击广告（80%概率）
             if random.random() < 0.8:
                 logger.info("用户选择点击广告")
-                
-                # 6. 点击广告区域
+                # 7. 点击广告区域
                 if not self.click_ad_with_multiple_strategies():
                     logger.warning("⚠️ 广告点击失败")
                     return False
-                
-                # 7. 等待新标签页打开
+                # 8. 等待新标签页打开
                 if not self.wait_for_new_tab():
                     logger.warning("⚠️ 新标签页未打开")
                     return False
-                
                 logger.info("✅ 广告点击模拟成功完成")
                 return True
             else:
                 logger.info("用户选择不点击广告")
                 return True
-                
         except Exception as e:
             logger.error(f"❌ 广告点击模拟过程中出错: {e}")
             return False
