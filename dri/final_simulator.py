@@ -111,10 +111,13 @@ class FinalAdSimulator:
             
             # 添加Linux系统特有的参数
             if platform.system().lower() == 'linux':
+                import random
+                user_dir = f'/tmp/dp_user_{os.getpid()}_{random.randint(1000,9999)}'
+                port = random.randint(30000, 40000)
                 co.set_argument('--no-sandbox')
                 co.set_argument('--headless=new')
-                co.set_argument(f'--user-data-dir=/tmp/dp_user_{os.getpid()}')
-                co.set_argument('--remote-debugging-port=0')  # 自动分配端口
+                co.set_argument(f'--user-data-dir={user_dir}')
+                co.set_argument(f'--remote-debugging-port={port}')
             
             # 创建页面实例
             self.page = ChromiumPage(co)
