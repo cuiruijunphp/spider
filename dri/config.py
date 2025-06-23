@@ -45,7 +45,6 @@ HUMAN_BEHAVIOR_CONFIG = {
 BROWSER_CONFIG = {
     'disable_images': True,         # 禁用图片加载
     'disable_webrtc': True,         # 禁用WebRTC
-    'anti_detection': True,         # 启用反检测
 }
 
 # 日志配置

@@ -3,13 +3,20 @@
 """
 最终版广告点击模拟器
 智能检测广告iframe内容，多种触发策略，支持动态等待和内容加载
+支持循环执行、随机设备类型和配置文件
 """
 
 import time
 import random
 import logging
+import sys
+import os
 from typing import Optional, Dict, List, Any
 from DrissionPage import ChromiumPage, ChromiumOptions
+
+# 添加配置文件路径
+sys.path.append(os.path.join(os.path.dirname(__file__), 'config'))
+from devices import PC_USER_AGENTS, ANDROID_DEVICES, IOS_DEVICES, IPAD_DEVICES
 
 # 配置日志
 logging.basicConfig(
@@ -28,20 +35,11 @@ AD_FRAME_TIMEOUT = 45  # 增加超时时间
 NEW_TAB_TIMEOUT = 30
 CONTENT_LOAD_TIMEOUT = 10
 
-# 设备配置
-DEVICE_CONFIGS = {
-    'pc': {
-        'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'window_size': (1920, 1080)
-    },
-    'android': {
-        'user_agent': 'Mozilla/5.0 (Linux; Android 10; SM-G975F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
-        'window_size': (360, 640)
-    },
-    'ios': {
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_7_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Mobile/15E148 Safari/604.1',
-        'window_size': (375, 667)
-    }
+# 循环执行配置
+LOOP_CONFIG = {
+    'min_sleep': 10,  # 最小休眠时间（秒）
+    'max_sleep': 30,  # 最大休眠时间（秒）
+    'max_loops': 0,   # 最大循环次数，0表示无限循环
 }
 
 class FinalAdSimulator:
@@ -52,30 +50,53 @@ class FinalAdSimulator:
         self.device_type = device_type
         self.page: Optional[ChromiumPage] = None
         self.ad_iframe_index: Optional[int] = None
+        self.device_config = self._get_random_device_config()
         self.setup_browser()
+    
+    def _get_random_device_config(self) -> Dict[str, Any]:
+        """获取随机设备配置"""
+        if self.device_type == 'pc':
+            # 随机选择PC端User-Agent
+            user_agent = random.choice(PC_USER_AGENTS)
+            return {
+                'name': 'PC',
+                'user_agent': user_agent,
+                'window_size': (1920, 1080)
+            }
+        elif self.device_type == 'android':
+            # 随机选择Android设备
+            device = random.choice(ANDROID_DEVICES)
+            return device
+        elif self.device_type == 'ios':
+            # 随机选择iOS设备
+            device = random.choice(IOS_DEVICES)
+            return device
+        elif self.device_type == 'ipad':
+            # 随机选择iPad设备
+            device = random.choice(IPAD_DEVICES)
+            return device
+        else:
+            # 默认PC配置
+            return {
+                'name': 'PC',
+                'user_agent': random.choice(PC_USER_AGENTS),
+                'window_size': (1920, 1080)
+            }
     
     def setup_browser(self):
         """设置浏览器配置"""
         try:
-            logger.info(f"开始初始化浏览器，设备类型: {self.device_type}")
+            logger.info(f"开始初始化浏览器，设备类型: {self.device_type}, 设备: {self.device_config['name']}")
             
             # 创建浏览器选项
             co = ChromiumOptions()
             
-            # 获取设备配置
-            device_config = DEVICE_CONFIGS.get(self.device_type, DEVICE_CONFIGS['pc'])
-            
             # 设置用户代理
-            co.set_user_agent(device_config['user_agent'])
+            co.set_user_agent(self.device_config['user_agent'])
             
             # 设置窗口大小
-            width, height = device_config['window_size']
+            width, height = self.device_config['window_size']
             co.set_argument(f'--window-size={width},{height}')
-            
-            # 反检测设置
-            co.set_argument('--disable-blink-features=AutomationControlled')
-            co.set_argument('--exclude-switches=enable-automation')
-            co.set_argument('--disable-extensions')
             
             # 其他设置
             co.set_argument('--no-sandbox')
@@ -86,20 +107,18 @@ class FinalAdSimulator:
             # 创建页面实例
             self.page = ChromiumPage(addr_or_opts=co)
             
-            # 执行反检测脚本
-            if self.page:
-                self.page.run_js('''
-                    Object.defineProperty(navigator, 'webdriver', {
-                        get: () => undefined,
-                    });
-                    
-                    // 隐藏webdriver属性
-                    delete window.cdc_adoQpoasnfa76pfcZLmcfl_Array;
-                    delete window.cdc_adoQpoasnfa76pfcZLmcfl_Promise;
-                    delete window.cdc_adoQpoasnfa76pfcZLmcfl_Symbol;
-                ''')
+            # 移除反检测JS注入
+            # if self.page:
+            #     self.page.run_js('''
+            #         Object.defineProperty(navigator, 'webdriver', {
+            #             get: () => undefined,
+            #         });
+            #         delete window.cdc_adoQpoasnfa76pfcZLmcfl_Array;
+            #         delete window.cdc_adoQpoasnfa76pfcZLmcfl_Promise;
+            #         delete window.cdc_adoQpoasnfa76pfcZLmcfl_Symbol;
+            #     ''')
             
-            logger.info(f"✅ 浏览器初始化完成，设备类型: {self.device_type}")
+            logger.info(f"✅ 浏览器初始化完成，设备类型: {self.device_type}, 设备: {self.device_config['name']}")
             
         except Exception as e:
             logger.error(f"❌ 浏览器初始化失败: {e}")
@@ -370,20 +389,21 @@ class FinalAdSimulator:
                         try {{
                             if (iframe.contentWindow && iframe.contentWindow.document) {{
                                 var doc = iframe.contentWindow.document;
-                                
-                                // 尝试点击所有可能的元素
                                 var clickableElements = doc.querySelectorAll('a, button, [onclick], [role="button"], img');
-                                for (var i = 0; i < clickableElements.length; i++) {{
+                                var images = doc.querySelectorAll('img');
+                                if (images.length > 1) {{
+                                    // 多张图片时随机点击一张
+                                    var idx = Math.floor(Math.random() * images.length);
                                     try {{
-                                        clickableElements[i].click();
-                                        console.log("点击了iframe内部元素: " + clickableElements[i].tagName);
-                                    }} catch(e) {{
-                                        // 忽略单个元素点击错误
-                                    }}
-                                }}
-                                
-                                // 如果没有可点击元素，尝试点击body
-                                if (clickableElements.length === 0 && doc.body) {{
+                                        images[idx].click();
+                                        console.log("随机点击了iframe内部图片: " + idx);
+                                    }} catch(e) {{}}
+                                }} else if (clickableElements.length > 0) {{
+                                    try {{
+                                        clickableElements[0].click();
+                                        console.log("点击了iframe内部元素: " + clickableElements[0].tagName);
+                                    }} catch(e) {{}}
+                                }} else if (doc.body) {{
                                     doc.body.click();
                                     console.log("点击了iframe body");
                                 }}
@@ -409,51 +429,37 @@ class FinalAdSimulator:
                     var iframes = document.getElementsByTagName("iframe");
                     var bestCandidate = null;
                     var bestScore = 0;
-                    
                     for (var i = 0; i < iframes.length; i++) {
                         var f = iframes[i];
                         var score = 0;
-                        
-                        // 评分逻辑
                         if (f.offsetWidth > 100 && f.offsetHeight > 100) score += 20;
                         if (f.style.display !== 'none' && f.style.visibility !== 'hidden') score += 15;
                         if (parseInt(f.style.zIndex) > 1000) score += 25;
                         if (f.style.position === 'fixed') score += 20;
                         if (f.style.right && f.style.top) score += 15;
-                        
                         var src = f.src.toLowerCase();
                         if (src.includes('ad') || src.includes('banner') || src.includes('monetag')) score += 30;
-                        
-                        // 检查iframe内容
                         try {
                             if (f.contentWindow && f.contentWindow.document) {
                                 var doc = f.contentWindow.document;
                                 var clickableElements = doc.querySelectorAll('a, button, [onclick], [role="button"], img');
+                                var images = doc.querySelectorAll('img');
+                                if (images.length > 1) score += 10;
                                 if (clickableElements.length > 0) score += 40;
                             }
                         } catch(e) {}
-                        
                         if (score > bestScore) {
                             bestScore = score;
                             bestCandidate = f;
                         }
                     }
-                    
                     if (bestCandidate && bestScore >= 50) {
-                        // 滚动到iframe可见
                         bestCandidate.scrollIntoView({behavior: 'smooth', block: 'center'});
-                        
-                        // 等待一下
                         setTimeout(function() {
-                            // 直接点击
                             bestCandidate.click();
-                            
-                            // 模拟鼠标事件
                             var rect = bestCandidate.getBoundingClientRect();
                             var centerX = rect.left + rect.width / 2;
                             var centerY = rect.top + rect.height / 2;
-                            
-                            // 鼠标按下
                             var mousedownEvent = new MouseEvent('mousedown', {
                                 view: window,
                                 bubbles: true,
@@ -463,8 +469,6 @@ class FinalAdSimulator:
                                 button: 0
                             });
                             bestCandidate.dispatchEvent(mousedownEvent);
-                            
-                            // 鼠标释放
                             var mouseupEvent = new MouseEvent('mouseup', {
                                 view: window,
                                 bubbles: true,
@@ -474,8 +478,6 @@ class FinalAdSimulator:
                                 button: 0
                             });
                             bestCandidate.dispatchEvent(mouseupEvent);
-                            
-                            // 点击
                             var clickEvent = new MouseEvent('click', {
                                 view: window,
                                 bubbles: true,
@@ -485,28 +487,28 @@ class FinalAdSimulator:
                                 button: 0
                             });
                             bestCandidate.dispatchEvent(clickEvent);
-                            
-                            // 尝试进入iframe内部
                             try {
                                 if (bestCandidate.contentWindow && bestCandidate.contentWindow.document) {
                                     var doc = bestCandidate.contentWindow.document;
                                     var clickableElements = doc.querySelectorAll('a, button, [onclick], [role="button"], img');
-                                    for (var i = 0; i < clickableElements.length; i++) {
+                                    var images = doc.querySelectorAll('img');
+                                    if (images.length > 1) {
+                                        var idx = Math.floor(Math.random() * images.length);
                                         try {
-                                            clickableElements[i].click();
+                                            images[idx].click();
                                         } catch(e) {}
-                                    }
-                                    
-                                    if (clickableElements.length === 0 && doc.body) {
+                                    } else if (clickableElements.length > 0) {
+                                        try {
+                                            clickableElements[0].click();
+                                        } catch(e) {}
+                                    } else if (doc.body) {
                                         doc.body.click();
                                     }
                                 }
                             } catch(e) {}
                         }, 500);
-                        
                         return true;
                     }
-                    
                     return false;
                 } catch(e) {
                     return false;
@@ -683,42 +685,74 @@ class FinalAdSimulator:
             logger.error(f"❌ 关闭浏览器时出错: {e}")
 
 def main():
-    """主函数"""
+    """主函数 - 支持循环执行和随机设备类型"""
     import sys
     
-    # 获取设备类型参数
-    device_type = sys.argv[1] if len(sys.argv) > 1 else 'pc'
+    # 获取设备类型参数，支持随机选择
+    device_type = sys.argv[1] if len(sys.argv) > 1 else 'random'
     
-    if device_type not in DEVICE_CONFIGS:
+    # 支持的设备类型
+    supported_devices = ['pc', 'android', 'ios', 'ipad', 'random']
+    
+    if device_type not in supported_devices:
         logger.error(f"❌ 不支持的设备类型: {device_type}")
-        logger.info(f"支持的设备类型: {', '.join(DEVICE_CONFIGS.keys())}")
+        logger.info(f"支持的设备类型: {', '.join(supported_devices)}")
         return
     
-    logger.info(f"选择设备类型: {device_type}")
+    logger.info(f"启动广告点击模拟器")
+    logger.info(f"循环配置: 休眠{LOOP_CONFIG['min_sleep']}-{LOOP_CONFIG['max_sleep']}秒")
+    if LOOP_CONFIG['max_loops'] > 0:
+        logger.info(f"最大循环次数: {LOOP_CONFIG['max_loops']}")
+    else:
+        logger.info("无限循环模式")
     
-    simulator = None
-    try:
-        # 创建模拟器实例
-        simulator = FinalAdSimulator(device_type)
+    loop_count = 0
+    
+    while True:
+        loop_count += 1
+        logger.info(f"=" * 50)
+        logger.info(f"开始第 {loop_count} 次循环")
         
-        # 运行模拟
-        success = simulator.run_simulation()
-        
-        if success:
-            logger.info("🎉 广告点击模拟完成")
+        # 随机选择设备类型
+        if device_type == 'random':
+            current_device = random.choice(['pc', 'android', 'ios', 'ipad'])
+            logger.info(f"随机选择设备类型: {current_device}")
         else:
-            logger.warning("⚠️ 广告点击模拟未完全成功")
+            current_device = device_type
         
-        # 等待一段时间
-        time.sleep(5)
+        simulator = None
+        try:
+            # 创建模拟器实例
+            simulator = FinalAdSimulator(current_device)
+            
+            # 运行模拟
+            success = simulator.run_simulation()
+            
+            if success:
+                logger.info(f"🎉 第 {loop_count} 次循环完成")
+            else:
+                logger.warning(f"⚠️ 第 {loop_count} 次循环未完全成功")
+            
+            # 等待一段时间
+            time.sleep(5)
+            
+        except Exception as e:
+            logger.error(f"❌ 第 {loop_count} 次循环执行出错: {e}")
         
-    except Exception as e:
-        logger.error(f"❌ 程序执行出错: {e}")
-    
-    finally:
-        # 确保浏览器被关闭
-        if simulator:
-            simulator.close()
+        finally:
+            # 确保浏览器被关闭
+            if simulator:
+                simulator.close()
+        
+        # 检查是否达到最大循环次数
+        if LOOP_CONFIG['max_loops'] > 0 and loop_count >= LOOP_CONFIG['max_loops']:
+            logger.info(f"达到最大循环次数 {LOOP_CONFIG['max_loops']}，程序结束")
+            break
+        
+        # 随机休眠
+        sleep_time = random.uniform(LOOP_CONFIG['min_sleep'], LOOP_CONFIG['max_sleep'])
+        logger.info(f"休眠 {sleep_time:.1f} 秒后开始下次循环...")
+        time.sleep(sleep_time)
 
 if __name__ == "__main__":
     main() 
