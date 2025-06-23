@@ -104,10 +104,10 @@ class FinalAdSimulator:
             co.set_argument(f'--window-size={width},{height}')
             
             # 其他设置
-            co.set_argument('--no-sandbox')
-            co.set_argument('--disable-dev-shm-usage')
-            co.set_argument('--disable-web-security')  # 允许跨域访问
-            co.set_argument('--disable-features=VizDisplayCompositor')
+            co.set_argument('--no-sandbox')  # 以root运行时必须，禁用沙盒
+            co.set_argument('--disable-dev-shm-usage')  # 避免/dev/shm空间不足导致崩溃
+            co.set_argument('--disable-web-security')  # 允许跨域访问，部分广告需要
+            co.set_argument('--disable-features=VizDisplayCompositor')  # 兼容部分无界面环境
             
             # 添加Linux系统特有的参数
             if platform.system().lower() == 'linux':
