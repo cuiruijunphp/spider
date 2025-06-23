@@ -42,7 +42,8 @@ def check_chrome():
         chrome_paths = [
             "/usr/bin/google-chrome",
             "/usr/bin/google-chrome-stable",
-            "/usr/bin/chromium-browser"
+            "/usr/bin/chromium-browser",
+            "/usr/bin/chrome"
         ]
     
     for path in chrome_paths:
