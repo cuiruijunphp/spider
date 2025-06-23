@@ -114,7 +114,7 @@ class FinalAdSimulator:
                 co.set_argument('--no-sandbox')
                 co.set_argument('--headless=new')
                 co.set_argument('--remote-debugging-port=0')  # 自动分配端口
-                co.set_user_data_dir('/tmp/dp_user_' + str(os.getpid()))
+                # co.set_user_data_dir('/tmp/dp_user_' + str(os.getpid()))
             
             # 创建页面实例
             self.page = ChromiumPage(addr_or_opts=co)
