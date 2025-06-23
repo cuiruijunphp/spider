@@ -4,7 +4,6 @@ import random
 from DrissionPage import ChromiumPage, ChromiumOptions
 import logging
 
-# 配置日志
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
@@ -35,7 +34,6 @@ def setup_browser(user_agent, window_size):
         raise
 
 if __name__ == "__main__":
-    # 示例参数，可根据需要修改
     user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
     window_size = (1920, 1080)
     page = setup_browser(user_agent, window_size)
