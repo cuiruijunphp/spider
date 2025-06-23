@@ -112,7 +112,14 @@ class FinalAdSimulator:
             # 添加Linux系统特有的参数
             if platform.system().lower() == 'linux':
                 import random
-                user_dir = f'/tmp/dp_user_{os.getpid()}_{random.randint(1000,9999)}'
+                # user_dir = f'/tmp/dp_user_{os.getpid()}_{random.randint(1000,9999)}'
+                # port = random.randint(30000, 40000)
+                # co.set_argument('--no-sandbox')
+                # co.set_argument('--headless=new')
+                # co.set_argument(f'--user-data-dir={user_dir}')
+                # co.set_argument(f'--remote-debugging-port={port}')
+
+                user_dir = f'/tmp/dp_user_{os.getpid()}_{random.randint(1000, 9999)}'
                 port = random.randint(30000, 40000)
                 co.set_argument('--no-sandbox')
                 co.set_argument('--headless=new')
