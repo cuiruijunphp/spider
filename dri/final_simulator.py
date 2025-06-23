@@ -12,6 +12,7 @@ import logging
 import sys
 import os
 import datetime
+import platform
 from typing import Optional, Dict, List, Any
 from DrissionPage import ChromiumPage, ChromiumOptions
 
@@ -43,7 +44,7 @@ CONTENT_LOAD_TIMEOUT = 10
 LOOP_CONFIG = {
     'min_sleep': 10,  # 最小休眠时间（秒）
     'max_sleep': 30,  # 最大休眠时间（秒）
-    'max_loops': 0,   # 最大循环次数，0表示无限循环
+    'max_loops': 5,   # 最大循环次数，0表示无限循环
 }
 
 class FinalAdSimulator:
@@ -107,6 +108,13 @@ class FinalAdSimulator:
             co.set_argument('--disable-dev-shm-usage')
             co.set_argument('--disable-web-security')  # 允许跨域访问
             co.set_argument('--disable-features=VizDisplayCompositor')
+            
+            # 添加Linux系统特有的参数
+            if platform.system().lower() == 'linux':
+                co.set_argument('--no-sandbox')
+                co.set_argument('--headless=new')
+                co.set_debug_port(0)  # 自动分配端口
+                co.set_user_data_dir('/tmp/dp_user_' + str(os.getpid()))
             
             # 创建页面实例
             self.page = ChromiumPage(addr_or_opts=co)
