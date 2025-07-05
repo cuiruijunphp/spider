@@ -13,7 +13,8 @@ import sys
 import os
 import datetime
 import platform
-from typing import Optional, Dict, List, Any
+import hashlib
+from typing import Optional, Dict, List, Any, Tuple
 from DrissionPage import ChromiumPage, ChromiumOptions
 
 # 添加配置文件路径
@@ -40,11 +41,11 @@ AD_FRAME_TIMEOUT = 45  # 增加超时时间
 NEW_TAB_TIMEOUT = 30
 CONTENT_LOAD_TIMEOUT = 10
 
-# 循环执行配置
+# 循环执行配置 - 优化版
 LOOP_CONFIG = {
     'min_sleep': 10,  # 最小休眠时间（秒）
     'max_sleep': 30,  # 最大休眠时间（秒）
-    'max_loops': 5,   # 最大循环次数，0表示无限循环
+    'max_loops': 20,   # 最大循环次数，0表示无限循环
 }
 
 class FinalAdSimulator:
@@ -56,17 +57,33 @@ class FinalAdSimulator:
         self.page: Optional[ChromiumPage] = None
         self.ad_iframe_index: Optional[int] = None
         self.device_config = self._get_random_device_config()
+        self.session_id = self._generate_session_id()  # 添加随机会话ID
         self.setup_browser()
+    
+    def _generate_session_id(self) -> str:
+        """生成唯一的会话ID"""
+        timestamp = str(time.time())
+        random_num = str(random.randint(1000, 9999))
+        return hashlib.md5(f"{timestamp}{random_num}".encode()).hexdigest()[:8]
     
     def _get_random_device_config(self) -> Dict[str, Any]:
         """获取随机设备配置"""
         if self.device_type == 'pc':
             # 随机选择PC端User-Agent
             user_agent = random.choice(PC_USER_AGENTS)
+            # 随机屏幕分辨率 - 增加随机性
+            resolutions = [
+                (1920, 1080), (1366, 768), (1440, 900), 
+                (1536, 864), (1280, 720), (1600, 900),
+                (1920, 1200), (1680, 1050), (1440, 960),
+                (1494, 894)
+            ]
             return {
                 'name': 'PC',
                 'user_agent': user_agent,
-                'window_size': (1920, 1080)
+                'window_size': random.choice(resolutions),
+                'color_depth': random.choice([24, 32]),
+                'pixel_ratio': random.choice([1, 1.25, 1.5, 2])
             }
         elif self.device_type == 'android':
             # 随机选择Android设备
@@ -103,23 +120,31 @@ class FinalAdSimulator:
             width, height = self.device_config['window_size']
             co.set_argument(f'--window-size={width},{height}')
             
-            # 其他设置
+            # 基础设置
             co.set_argument('--no-sandbox')  # 以root运行时必须，禁用沙盒
             co.set_argument('--disable-dev-shm-usage')  # 避免/dev/shm空间不足导致崩溃
             co.set_argument('--disable-web-security')  # 允许跨域访问，部分广告需要
             co.set_argument('--disable-features=VizDisplayCompositor')  # 兼容部分无界面环境
             
+            # 增强反检测设置
+            co.set_argument('--disable-blink-features=AutomationControlled')  # 禁用自动化控制特征
+            co.set_argument('--disable-extensions')  # 禁用扩展
+            co.set_argument('--disable-plugins')  # 禁用插件
+            co.set_argument('--disable-default-apps')  # 禁用默认应用
+            co.set_argument('--disable-sync')  # 禁用同步
+            co.set_argument('--disable-background-timer-throttling')  # 禁用后台定时器限制
+            co.set_argument('--disable-backgrounding-occluded-windows')  # 禁用后台窗口限制
+            co.set_argument('--disable-renderer-backgrounding')  # 禁用渲染器后台限制
+            co.set_argument('--disable-field-trial-config')  # 禁用字段试验配置
+            co.set_argument('--disable-ipc-flooding-protection')  # 禁用IPC洪水保护
+            
+            # 设置语言和时区
+            co.set_argument('--lang=zh-CN,zh;q=0.9,en;q=0.8')  # 设置语言
+            co.set_argument('--timezone=Asia/Shanghai')  # 设置时区
+            
             # 添加Linux系统特有的参数
             if platform.system().lower() == 'linux':
-                import random
-                # user_dir = f'/tmp/dp_user_{os.getpid()}_{random.randint(1000,9999)}'
-                # port = random.randint(30000, 40000)
-                # co.set_argument('--no-sandbox')
-                # co.set_argument('--headless=new')
-                # co.set_argument(f'--user-data-dir={user_dir}')
-                # co.set_argument(f'--remote-debugging-port={port}')
-
-                user_dir = f'/tmp/dp_user_{os.getpid()}_{random.randint(1000, 9999)}'
+                user_dir = f'/tmp/dp_user_{self.session_id}_{random.randint(1000, 9999)}'
                 port = random.randint(30000, 40000)
                 co.set_argument('--no-sandbox')
                 co.set_argument('--headless=new')
@@ -129,56 +154,238 @@ class FinalAdSimulator:
             # 创建页面实例
             self.page = ChromiumPage(co)
             
-            # 移除反检测JS注入
-            # if self.page:
-            #     self.page.run_js('''
-            #         Object.defineProperty(navigator, 'webdriver', {
-            #             get: () => undefined,
-            #         });
-            #         delete window.cdc_adoQpoasnfa76pfcZLmcfl_Array;
-            #         delete window.cdc_adoQpoasnfa76pfcZLmcfl_Promise;
-            #         delete window.cdc_adoQpoasnfa76pfcZLmcfl_Symbol;
-            #     ''')
+            # 注入增强反检测脚本
+            self._inject_anti_detection_scripts()
             
-            logger.info(f"✅ 浏览器初始化完成，设备类型: {self.device_type}, 设备: {self.device_config['name']}")
+            logger.info(f"✅ 浏览器初始化完成，设备类型: {self.device_type}, 设备: {self.device_config['name']}, 会话ID: {self.session_id}")
             
         except Exception as e:
             logger.error(f"❌ 浏览器初始化失败: {e}")
             raise
     
-    def simulate_human_behavior(self):
-        """模拟人类行为"""
+    def _inject_anti_detection_scripts(self):
+        """注入增强反检测脚本"""
+        if not self.page:
+            return
+            
         try:
-            logger.info("开始模拟人类行为...")
-            
-            # 随机等待
-            wait_time = random.uniform(2, 5)
-            time.sleep(wait_time)
-            
-            # 随机滚动页面
-            scroll_times = random.randint(1, 3)
-            for _ in range(scroll_times):
-                scroll_y = random.randint(100, 500)
-                self.page.run_js(f'window.scrollBy(0, {scroll_y});')
-                time.sleep(random.uniform(0.5, 1.5))
-            
-            # 随机移动鼠标（模拟）
             self.page.run_js('''
-                // 模拟鼠标移动
-                var event = new MouseEvent('mousemove', {
-                    view: window,
-                    bubbles: true,
-                    cancelable: true,
-                    clientX: Math.random() * window.innerWidth,
-                    clientY: Math.random() * window.innerHeight
+                // 移除webdriver属性
+                Object.defineProperty(navigator, 'webdriver', {
+                    get: () => undefined,
                 });
-                document.dispatchEvent(event);
+                
+                // 移除Chrome自动化标识
+                delete window.cdc_adoQpoasnfa76pfcZLmcfl_Array;
+                delete window.cdc_adoQpoasnfa76pfcZLmcfl_Promise;
+                delete window.cdc_adoQpoasnfa76pfcZLmcfl_Symbol;
+                
+                // 伪造插件信息
+                Object.defineProperty(navigator, 'plugins', {
+                    get: () => [1, 2, 3, 4, 5],
+                });
+                
+                // 伪造语言信息
+                Object.defineProperty(navigator, 'languages', {
+                    get: () => ['zh-CN', 'zh', 'en'],
+                });
+                
+                // 伪造硬件并发数
+                Object.defineProperty(navigator, 'hardwareConcurrency', {
+                    get: () => 4,
+                });
+                
+                // 伪造设备内存
+                Object.defineProperty(navigator, 'deviceMemory', {
+                    get: () => 8,
+                });
+                
+                // 伪造连接信息
+                Object.defineProperty(navigator, 'connection', {
+                    get: () => ({
+                        effectiveType: '4g',
+                        rtt: 50,
+                        downlink: 10,
+                        saveData: false
+                    }),
+                });
+                
+                // 伪造权限状态
+                const originalQuery = window.navigator.permissions.query;
+                window.navigator.permissions.query = (parameters) => (
+                    parameters.name === 'notifications' ?
+                        Promise.resolve({ state: Notification.permission }) :
+                        originalQuery(parameters)
+                );
+                
+                // 伪造WebGL信息
+                const getParameter = WebGLRenderingContext.prototype.getParameter;
+                WebGLRenderingContext.prototype.getParameter = function(parameter) {
+                    if (parameter === 37445) {
+                        return 'Intel Inc.';
+                    }
+                    if (parameter === 37446) {
+                        return 'Intel(R) Iris(TM) Graphics 6100';
+                    }
+                    return getParameter.call(this, parameter);
+                };
+                
+                // 伪造Canvas指纹
+                const originalGetContext = HTMLCanvasElement.prototype.getContext;
+                HTMLCanvasElement.prototype.getContext = function(type, ...args) {
+                    const context = originalGetContext.call(this, type, ...args);
+                    if (type === '2d') {
+                        const originalFillText = context.fillText;
+                        context.fillText = function(...args) {
+                            return originalFillText.apply(this, args);
+                        };
+                    }
+                    return context;
+                };
+                
+                // 伪造音频指纹
+                const originalGetChannelData = AudioBuffer.prototype.getChannelData;
+                AudioBuffer.prototype.getChannelData = function(channel) {
+                    const data = originalGetChannelData.call(this, channel);
+                    return data;
+                };
+                
+                console.log('增强反检测脚本注入完成');
             ''')
             
-            logger.info("✅ 人类行为模拟完成")
+            logger.info("✅ 增强反检测脚本注入完成")
+            
+        except Exception as e:
+            logger.debug(f"反检测脚本注入出错: {e}")
+    
+    def simulate_human_behavior(self):
+        """模拟真实人类行为 - 增强版"""
+        try:
+            logger.info("开始模拟真实人类行为...")
+            
+            # 随机等待时间（更真实）
+            wait_time = random.uniform(3, 8)
+            time.sleep(wait_time)
+            
+            # 模拟页面浏览行为
+            self._simulate_page_browsing()
+            
+            # 模拟鼠标移动轨迹
+            self._simulate_mouse_movement()
+            
+            # 模拟键盘输入（随机）
+            if random.random() < 0.3:
+                self._simulate_keyboard_input()
+            
+            logger.info("✅ 真实人类行为模拟完成")
             
         except Exception as e:
             logger.debug(f"人类行为模拟出错: {e}")
+    
+    def _simulate_page_browsing(self):
+        """模拟页面浏览行为"""
+        try:
+            # 随机滚动次数和距离
+            scroll_times = random.randint(2, 5)
+            for i in range(scroll_times):
+                # 随机滚动距离
+                scroll_y = random.randint(50, 300)
+                scroll_direction = random.choice([1, -1])  # 向上或向下
+                
+                # 平滑滚动
+                self.page.run_js(f'''
+                    window.scrollBy({{
+                        top: {scroll_y * scroll_direction},
+                        left: 0,
+                        behavior: 'smooth'
+                    }});
+                ''')
+                
+                # 随机等待
+                time.sleep(random.uniform(1, 3))
+                
+                # 偶尔暂停
+                if random.random() < 0.2:
+                    time.sleep(random.uniform(2, 5))
+            
+            # 偶尔回到顶部
+            if random.random() < 0.3:
+                self.page.run_js('window.scrollTo({top: 0, behavior: "smooth"});')
+                time.sleep(random.uniform(1, 2))
+                
+        except Exception as e:
+            logger.debug(f"页面浏览模拟出错: {e}")
+    
+    def _simulate_mouse_movement(self):
+        """模拟鼠标移动轨迹 - 使用贝塞尔曲线"""
+        try:
+            # 生成贝塞尔曲线轨迹点
+            points = self._generate_bezier_curve_points()
+            
+            for point in points:
+                self.page.run_js(f'''
+                    var event = new MouseEvent('mousemove', {{
+                        view: window,
+                        bubbles: true,
+                        cancelable: true,
+                        clientX: {point[0]},
+                        clientY: {point[1]},
+                        movementX: {point[0]} - (window.lastX !== undefined ? window.lastX : 0),
+                        movementY: {point[1]} - (window.lastY !== undefined ? window.lastY : 0)
+                    }});
+                    document.dispatchEvent(event);
+                    window.lastX = {point[0]};
+                    window.lastY = {point[1]};
+                ''')
+                time.sleep(random.uniform(0.01, 0.05))
+                
+        except Exception as e:
+            logger.debug(f"鼠标移动模拟出错: {e}")
+    
+    def _generate_bezier_curve_points(self) -> List[Tuple[int, int]]:
+        """生成贝塞尔曲线轨迹点"""
+        points = []
+        width = self.device_config['window_size'][0]
+        height = self.device_config['window_size'][1]
+        
+        # 生成控制点
+        p0 = (random.randint(0, width//4), random.randint(0, height//4))
+        p1 = (random.randint(width//4, width//2), random.randint(height//4, height//2))
+        p2 = (random.randint(width//2, 3*width//4), random.randint(height//2, 3*height//4))
+        p3 = (random.randint(3*width//4, width), random.randint(3*height//4, height))
+        
+        # 生成曲线点
+        for t in range(0, 101, 5):
+            t = t / 100.0
+            x = (1-t)**3 * p0[0] + 3*(1-t)**2*t * p1[0] + 3*(1-t)*t**2 * p2[0] + t**3 * p3[0]
+            y = (1-t)**3 * p0[1] + 3*(1-t)**2*t * p1[1] + 3*(1-t)*t**2 * p2[1] + t**3 * p3[1]
+            points.append((int(x), int(y)))
+        
+        return points
+    
+    def _simulate_keyboard_input(self):
+        """模拟键盘输入"""
+        try:
+            # 随机按键
+            keys = ['Tab', 'Space', 'ArrowDown', 'ArrowUp', 'Home', 'End']
+            key = random.choice(keys)
+            
+            self.page.run_js(f'''
+                var event = new KeyboardEvent('keydown', {{
+                    key: '{key}',
+                    code: 'Key{key}',
+                    keyCode: 9,
+                    which: 9,
+                    bubbles: true,
+                    cancelable: true
+                }});
+                document.dispatchEvent(event);
+            ''')
+            
+            time.sleep(random.uniform(0.1, 0.3))
+            
+        except Exception as e:
+            logger.debug(f"键盘输入模拟出错: {e}")
     
     def get_a_tag_xpaths(self) -> list:
         """收集页面所有<a>标签的xpath列表"""
@@ -424,43 +631,38 @@ class FinalAdSimulator:
                         // 策略1.1: 直接点击iframe元素
                         iframe.click();
                         
-                        // 策略1.2: 模拟鼠标事件（更真实）
+                        // 策略1.2: 增强的鼠标事件序列（更真实）
                         var rect = iframe.getBoundingClientRect();
                         var centerX = rect.left + rect.width / 2;
                         var centerY = rect.top + rect.height / 2;
                         
-                        // 鼠标按下事件
-                        var mousedownEvent = new MouseEvent('mousedown', {{
-                            view: window,
-                            bubbles: true,
-                            cancelable: true,
-                            clientX: centerX,
-                            clientY: centerY,
-                            button: 0
-                        }});
-                        iframe.dispatchEvent(mousedownEvent);
+                        // 添加随机偏移，模拟真实点击
+                        centerX += Math.random() * 20 - 10;
+                        centerY += Math.random() * 20 - 10;
                         
-                        // 鼠标释放事件
-                        var mouseupEvent = new MouseEvent('mouseup', {{
-                            view: window,
-                            bubbles: true,
-                            cancelable: true,
-                            clientX: centerX,
-                            clientY: centerY,
-                            button: 0
-                        }});
-                        iframe.dispatchEvent(mouseupEvent);
+                        // 完整的鼠标事件序列
+                        var events = [
+                            'mouseenter',
+                            'mouseover', 
+                            'mousedown',
+                            'mouseup',
+                            'click'
+                        ];
                         
-                        // 点击事件
-                        var clickEvent = new MouseEvent('click', {{
-                            view: window,
-                            bubbles: true,
-                            cancelable: true,
-                            clientX: centerX,
-                            clientY: centerY,
-                            button: 0
+                        events.forEach(function(eventType, index) {{
+                            setTimeout(function() {{
+                                var event = new MouseEvent(eventType, {{
+                                    view: window,
+                                    bubbles: true,
+                                    cancelable: true,
+                                    clientX: centerX + Math.random() * 6 - 3,
+                                    clientY: centerY + Math.random() * 6 - 3,
+                                    button: 0,
+                                    buttons: eventType === 'mousedown' ? 1 : 0
+                                }});
+                                iframe.dispatchEvent(event);
+                            }}, index * 30);
                         }});
-                        iframe.dispatchEvent(clickEvent);
                         
                         // 策略1.3: 尝试进入iframe内部点击
                         try {{
