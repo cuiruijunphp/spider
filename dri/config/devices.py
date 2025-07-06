@@ -126,329 +126,336 @@ ANDROID_DEVICES = [
         'user_agent': 'Mozilla/5.0 (Linux; U; Android 12; zh-Hans-CN; TAS-AL00 Build/HUAWEITAS-AL00) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/123.0.6312.80 Quark/7.13.2.852 Mobile Safari/537.36',
         'window_size': (360, 686)
     },
-   {
-        'name': 'Samsung Galaxy S24',
-        'user_agent': 'Mozilla/5.0 (Linux; Android 14; SM-S921B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
-        'window_size': (412, 915)
-    },
-    {
-        'name': 'Samsung Galaxy S23',
-        'user_agent': 'Mozilla/5.0 (Linux; Android 13; SM-S911B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
-        'window_size': (412, 915)
-    },
-    {
-        'name': 'Samsung Galaxy S22',
-        'user_agent': 'Mozilla/5.0 (Linux; Android 12; SM-S901B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
-        'window_size': (412, 915)
-    },
-    {
-        'name': 'Google Pixel 8',
-        'user_agent': 'Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
-        'window_size': (412, 915)
-    },
-    {
-        'name': 'Google Pixel 7',
-        'user_agent': 'Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
-        'window_size': (412, 915)
-    },
-    {
-        'name': 'OnePlus 11',
-        'user_agent': 'Mozilla/5.0 (Linux; Android 13; CPH2451) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
-        'window_size': (412, 915)
-    },
-    {
-        'name': 'Xiaomi 13',
-        'user_agent': 'Mozilla/5.0 (Linux; Android 13; 2211133C) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
-        'window_size': (412, 915)
-    },
-    {
-        'name': 'OPPO Find X6',
-        'user_agent': 'Mozilla/5.0 (Linux; Android 13; PEXM00) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
-        'window_size': (412, 915)
-    },
-    {
-        'name': 'vivo X90',
-        'user_agent': 'Mozilla/5.0 (Linux; Android 13; V2241A) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
-        'window_size': (412, 915)
-    },
-    {
-        'name': 'Huawei P60',
-        'user_agent': 'Mozilla/5.0 (Linux; Android 12; ALH-AN00) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
-        'window_size': (412, 915)
-    },
-    {
-        'name': 'Samsung Galaxy A54',
-        'user_agent': 'Mozilla/5.0 (Linux; Android 13; SM-A546B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
-        'window_size': (412, 915)
-    },
-    {
-        'name': 'Redmi Note 12',
-        'user_agent': 'Mozilla/5.0 (Linux; Android 12; 23049RAD8C) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
-        'window_size': (412, 915)
-    },
-    { 'name': 'Huawei Pura 70', 'user_agent': 'Mozilla/5.0 (Linux; Android 14; HUAWEI Pura 70) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
-    { 'name': 'Huawei Pura 70 Pro', 'user_agent': 'Mozilla/5.0 (Linux; Android 14; HUAWEI Pura 70 Pro) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
-    { 'name': 'Huawei Pura 70 Ultra', 'user_agent': 'Mozilla/5.0 (Linux; Android 14; HUAWEI Pura 70 Ultra) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
-    { 'name': 'Huawei P60', 'user_agent': 'Mozilla/5.0 (Linux; Android 13; HUAWEI P60) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
-    { 'name': 'Huawei P60 Pro', 'user_agent': 'Mozilla/5.0 (Linux; Android 13; HUAWEI P60 Pro) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
-    { 'name': 'Huawei Nova 14', 'user_agent': 'Mozilla/5.0 (Linux; Android 14; HUAWEI Nova 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
-    { 'name': 'Huawei Mate 70', 'user_agent': 'Mozilla/5.0 (Linux; Android 14; HUAWEI Mate 70) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
-    { 'name': 'Huawei Mate 70 Pro', 'user_agent': 'Mozilla/5.0 (Linux; Android 14; HUAWEI Mate 70 Pro) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
-    { 'name': 'Huawei Mate 60', 'user_agent': 'Mozilla/5.0 (Linux; Android 13; HUAWEI Mate 60) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
-    { 'name': 'Huawei Mate 60 Pro', 'user_agent': 'Mozilla/5.0 (Linux; Android 13; HUAWEI Mate 60 Pro) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
-    { 'name': 'Honor Play9C', 'user_agent': 'Mozilla/5.0 (Linux; Android 13; HONOR Play9C) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
-    { 'name': 'Honor Play9T', 'user_agent': 'Mozilla/5.0 (Linux; Android 13; HONOR Play9T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
-    { 'name': 'Honor X60', 'user_agent': 'Mozilla/5.0 (Linux; Android 14; HONOR X60) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
-    { 'name': 'Honor 400', 'user_agent': 'Mozilla/5.0 (Linux; Android 14; HONOR 400) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
-    { 'name': 'vivo X200', 'user_agent': 'Mozilla/5.0 (Linux; Android 14; vivo X200) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
-    { 'name': 'vivo Y200GT', 'user_agent': 'Mozilla/5.0 (Linux; Android 14; vivo Y200GT) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
-    { 'name': 'vivo S20', 'user_agent': 'Mozilla/5.0 (Linux; Android 14; vivo S20) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
-    { 'name': 'Xiaomi 15', 'user_agent': 'Mozilla/5.0 (Linux; Android 14; MI 15) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
-    { 'name': 'Redmi Note 14', 'user_agent': 'Mozilla/5.0 (Linux; Android 14; Redmi Note 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
-    { 'name': 'Redmi Note 13', 'user_agent': 'Mozilla/5.0 (Linux; Android 13; Redmi Note 13) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
-    { 'name': 'Redmi K80', 'user_agent': 'Mozilla/5.0 (Linux; Android 14; Redmi K80) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
-    { 'name': 'Xiaomi 14', 'user_agent': 'Mozilla/5.0 (Linux; Android 14; MI 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
-    { 'name': 'Redmi K70', 'user_agent': 'Mozilla/5.0 (Linux; Android 14; Redmi K70) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
-    { 'name': 'Xiaomi 13', 'user_agent': 'Mozilla/5.0 (Linux; Android 13; MI 13) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) }
+
+    # 下面这些先注释掉
+   # {
+   #      'name': 'Samsung Galaxy S24',
+   #      'user_agent': 'Mozilla/5.0 (Linux; Android 14; SM-S921B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
+   #      'window_size': (412, 915)
+   #  },
+   #  {
+   #      'name': 'Samsung Galaxy S23',
+   #      'user_agent': 'Mozilla/5.0 (Linux; Android 13; SM-S911B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
+   #      'window_size': (412, 915)
+   #  },
+   #  {
+   #      'name': 'Samsung Galaxy S22',
+   #      'user_agent': 'Mozilla/5.0 (Linux; Android 12; SM-S901B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
+   #      'window_size': (412, 915)
+   #  },
+   #  {
+   #      'name': 'Google Pixel 8',
+   #      'user_agent': 'Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
+   #      'window_size': (412, 915)
+   #  },
+   #  {
+   #      'name': 'Google Pixel 7',
+   #      'user_agent': 'Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
+   #      'window_size': (412, 915)
+   #  },
+   #  {
+   #      'name': 'OnePlus 11',
+   #      'user_agent': 'Mozilla/5.0 (Linux; Android 13; CPH2451) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
+   #      'window_size': (412, 915)
+   #  },
+   #  {
+   #      'name': 'Xiaomi 13',
+   #      'user_agent': 'Mozilla/5.0 (Linux; Android 13; 2211133C) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
+   #      'window_size': (412, 915)
+   #  },
+   #  {
+   #      'name': 'OPPO Find X6',
+   #      'user_agent': 'Mozilla/5.0 (Linux; Android 13; PEXM00) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
+   #      'window_size': (412, 915)
+   #  },
+   #  {
+   #      'name': 'vivo X90',
+   #      'user_agent': 'Mozilla/5.0 (Linux; Android 13; V2241A) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
+   #      'window_size': (412, 915)
+   #  },
+   #  {
+   #      'name': 'Huawei P60',
+   #      'user_agent': 'Mozilla/5.0 (Linux; Android 12; ALH-AN00) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
+   #      'window_size': (412, 915)
+   #  },
+   #  {
+   #      'name': 'Samsung Galaxy A54',
+   #      'user_agent': 'Mozilla/5.0 (Linux; Android 13; SM-A546B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
+   #      'window_size': (412, 915)
+   #  },
+   #  {
+   #      'name': 'Redmi Note 12',
+   #      'user_agent': 'Mozilla/5.0 (Linux; Android 12; 23049RAD8C) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
+   #      'window_size': (412, 915)
+   #  },
+   #  { 'name': 'Huawei Pura 70', 'user_agent': 'Mozilla/5.0 (Linux; Android 14; HUAWEI Pura 70) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
+   #  { 'name': 'Huawei Pura 70 Pro', 'user_agent': 'Mozilla/5.0 (Linux; Android 14; HUAWEI Pura 70 Pro) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
+   #  { 'name': 'Huawei Pura 70 Ultra', 'user_agent': 'Mozilla/5.0 (Linux; Android 14; HUAWEI Pura 70 Ultra) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
+   #  { 'name': 'Huawei P60', 'user_agent': 'Mozilla/5.0 (Linux; Android 13; HUAWEI P60) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
+   #  { 'name': 'Huawei P60 Pro', 'user_agent': 'Mozilla/5.0 (Linux; Android 13; HUAWEI P60 Pro) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
+   #  { 'name': 'Huawei Nova 14', 'user_agent': 'Mozilla/5.0 (Linux; Android 14; HUAWEI Nova 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
+   #  { 'name': 'Huawei Mate 70', 'user_agent': 'Mozilla/5.0 (Linux; Android 14; HUAWEI Mate 70) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
+   #  { 'name': 'Huawei Mate 70 Pro', 'user_agent': 'Mozilla/5.0 (Linux; Android 14; HUAWEI Mate 70 Pro) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
+   #  { 'name': 'Huawei Mate 60', 'user_agent': 'Mozilla/5.0 (Linux; Android 13; HUAWEI Mate 60) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
+   #  { 'name': 'Huawei Mate 60 Pro', 'user_agent': 'Mozilla/5.0 (Linux; Android 13; HUAWEI Mate 60 Pro) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
+   #  { 'name': 'Honor Play9C', 'user_agent': 'Mozilla/5.0 (Linux; Android 13; HONOR Play9C) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
+   #  { 'name': 'Honor Play9T', 'user_agent': 'Mozilla/5.0 (Linux; Android 13; HONOR Play9T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
+   #  { 'name': 'Honor X60', 'user_agent': 'Mozilla/5.0 (Linux; Android 14; HONOR X60) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
+   #  { 'name': 'Honor 400', 'user_agent': 'Mozilla/5.0 (Linux; Android 14; HONOR 400) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
+   #  { 'name': 'vivo X200', 'user_agent': 'Mozilla/5.0 (Linux; Android 14; vivo X200) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
+   #  { 'name': 'vivo Y200GT', 'user_agent': 'Mozilla/5.0 (Linux; Android 14; vivo Y200GT) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
+   #  { 'name': 'vivo S20', 'user_agent': 'Mozilla/5.0 (Linux; Android 14; vivo S20) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
+   #  { 'name': 'Xiaomi 15', 'user_agent': 'Mozilla/5.0 (Linux; Android 14; MI 15) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
+   #  { 'name': 'Redmi Note 14', 'user_agent': 'Mozilla/5.0 (Linux; Android 14; Redmi Note 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
+   #  { 'name': 'Redmi Note 13', 'user_agent': 'Mozilla/5.0 (Linux; Android 13; Redmi Note 13) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
+   #  { 'name': 'Redmi K80', 'user_agent': 'Mozilla/5.0 (Linux; Android 14; Redmi K80) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
+   #  { 'name': 'Xiaomi 14', 'user_agent': 'Mozilla/5.0 (Linux; Android 14; MI 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
+   #  { 'name': 'Redmi K70', 'user_agent': 'Mozilla/5.0 (Linux; Android 14; Redmi K70) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) },
+   #  { 'name': 'Xiaomi 13', 'user_agent': 'Mozilla/5.0 (Linux; Android 13; MI 13) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36', 'window_size': (412, 915) }
 
 ]
 
 # iOS设备配置
 IOS_DEVICES = [
+
+    # 先注释掉生成的浏览器版本和OS版本
+
     # iPhone 13系列 - iOS 18.2
-    {
-        'name': 'iPhone 13 (Safari)',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1',
-        'window_size': (390, 844)
-    },
-    {
-        'name': 'iPhone 13 (Chrome)',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/138.0.7151.107 Mobile/15E148 Safari/604.1',
-        'window_size': (390, 844)
-    },
-    {
-        'name': 'iPhone 13 mini (Safari)',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1',
-        'window_size': (375, 812)
-    },
-    {
-        'name': 'iPhone 13 mini (Chrome)',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/138.0.7151.107 Mobile/15E148 Safari/604.1',
-        'window_size': (375, 812)
-    },
-    {
-        'name': 'iPhone 13 Pro (Safari)',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1',
-        'window_size': (390, 844)
-    },
-    {
-        'name': 'iPhone 13 Pro (Chrome)',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/138.0.7151.107 Mobile/15E148 Safari/604.1',
-        'window_size': (390, 844)
-    },
-    {
-        'name': 'iPhone 13 Pro Max (Safari)',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1',
-        'window_size': (428, 926)
-    },
-    {
-        'name': 'iPhone 13 Pro Max (Chrome)',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/138.0.7151.107 Mobile/15E148 Safari/604.1',
-        'window_size': (428, 926)
-    },
-    
-    # iPhone 14系列 - iOS 18.2
-    {
-        'name': 'iPhone 14 (Safari)',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1',
-        'window_size': (393, 852)
-    },
-    {
-        'name': 'iPhone 14 (Chrome)',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/138.0.7151.107 Mobile/15E148 Safari/604.1',
-        'window_size': (393, 852)
-    },
-    {
-        'name': 'iPhone 14 Plus (Safari)',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1',
-        'window_size': (430, 932)
-    },
-    {
-        'name': 'iPhone 14 Plus (Chrome)',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/138.0.7151.107 Mobile/15E148 Safari/604.1',
-        'window_size': (430, 932)
-    },
-    {
-        'name': 'iPhone 14 Pro (Safari)',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1',
-        'window_size': (393, 852)
-    },
-    {
-        'name': 'iPhone 14 Pro (Chrome)',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/138.0.7151.107 Mobile/15E148 Safari/604.1',
-        'window_size': (393, 852)
-    },
-    {
-        'name': 'iPhone 14 Pro Max (Safari)',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1',
-        'window_size': (430, 932)
-    },
-    {
-        'name': 'iPhone 14 Pro Max (Chrome)',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/138.0.7151.107 Mobile/15E148 Safari/604.1',
-        'window_size': (430, 932)
-    },
-    
-    # iPhone 15系列 - iOS 18.2
-    {
-        'name': 'iPhone 15 (Safari)',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1',
-        'window_size': (393, 852)
-    },
-    {
-        'name': 'iPhone 15 (Chrome)',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/138.0.7151.107 Mobile/15E148 Safari/604.1',
-        'window_size': (393, 852)
-    },
-    {
-        'name': 'iPhone 15 Plus (Safari)',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1',
-        'window_size': (430, 932)
-    },
-    {
-        'name': 'iPhone 15 Plus (Chrome)',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/138.0.7151.107 Mobile/15E148 Safari/604.1',
-        'window_size': (430, 932)
-    },
-    {
-        'name': 'iPhone 15 Pro (Safari)',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1',
-        'window_size': (393, 852)
-    },
-    {
-        'name': 'iPhone 15 Pro (Chrome)',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/138.0.7151.107 Mobile/15E148 Safari/604.1',
-        'window_size': (393, 852)
-    },
-    {
-        'name': 'iPhone 15 Pro Max (Safari)',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1',
-        'window_size': (430, 932)
-    },
-    {
-        'name': 'iPhone 15 Pro Max (Chrome)',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/138.0.7151.107 Mobile/15E148 Safari/604.1',
-        'window_size': (430, 932)
-    },
-    
-    # iPhone 16系列 - iOS 18.2
-    {
-        'name': 'iPhone 16 (Safari)',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1',
-        'window_size': (393, 852)
-    },
-    {
-        'name': 'iPhone 16 (Chrome)',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/138.0.7151.107 Mobile/15E148 Safari/604.1',
-        'window_size': (393, 852)
-    },
-    {
-        'name': 'iPhone 16 Plus (Safari)',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1',
-        'window_size': (430, 932)
-    },
-    {
-        'name': 'iPhone 16 Plus (Chrome)',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/138.0.7151.107 Mobile/15E148 Safari/604.1',
-        'window_size': (430, 932)
-    },
-    {
-        'name': 'iPhone 16 Pro (Safari)',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1',
-        'window_size': (393, 852)
-    },
-    {
-        'name': 'iPhone 16 Pro (Chrome)',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/138.0.7151.107 Mobile/15E148 Safari/604.1',
-        'window_size': (393, 852)
-    },
-    {
-        'name': 'iPhone 16 Pro Max (Safari)',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1',
-        'window_size': (430, 932)
-    },
-    {
-        'name': 'iPhone 16 Pro Max (Chrome)',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/138.0.7151.107 Mobile/15E148 Safari/604.1',
-        'window_size': (430, 932)
-    },
-    
-    # 保留原有的部分配置作为备用
-    {
-        'name': 'iPhone 15 Pro Max',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
-        'window_size': (430, 932)
-    },
-    {
-        'name': 'iPhone 15 Pro Max',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/137.0.7151.107 Mobile/15E148 Safari/604.1',
-        'window_size': (430, 932)
-    },
-    {
-        'name': 'iPhone 15 Pro Max',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1',
-        'window_size': (430, 932)
-    },
-    {
-        'name': 'iPhone 15 Pro',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
-        'window_size': (393, 852)
-    },
-    {
-        'name': 'iPhone 15',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
-        'window_size': (393, 852)
-    },
-    {
-        'name': 'iPhone 15 Plus',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
-        'window_size': (430, 932)
-    },
-    {
-        'name': 'iPhone 14 Pro Max',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
-        'window_size': (430, 932)
-    },
-    {
-        'name': 'iPhone 14 Pro',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
-        'window_size': (393, 852)
-    },
-    {
-        'name': 'iPhone 14',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
-        'window_size': (393, 852)
-    },
-    {
-        'name': 'iPhone 14 Plus',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
-        'window_size': (430, 932)
-    },
-    {
-        'name': 'iPhone 13 Pro Max',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
-        'window_size': (428, 926)
-    },
-    {
-        'name': 'iPhone 13 Pro',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
-        'window_size': (390, 844)
-    },
-    {
-        'name': 'iPhone 13',
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
-        'window_size': (390, 844)
-    },
+    # {
+    #     'name': 'iPhone 13 (Safari)',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1',
+    #     'window_size': (390, 844)
+    # },
+    # {
+    #     'name': 'iPhone 13 (Chrome)',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/138.0.7151.107 Mobile/15E148 Safari/604.1',
+    #     'window_size': (390, 844)
+    # },
+    # {
+    #     'name': 'iPhone 13 mini (Safari)',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1',
+    #     'window_size': (375, 812)
+    # },
+    # {
+    #     'name': 'iPhone 13 mini (Chrome)',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/138.0.7151.107 Mobile/15E148 Safari/604.1',
+    #     'window_size': (375, 812)
+    # },
+    # {
+    #     'name': 'iPhone 13 Pro (Safari)',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1',
+    #     'window_size': (390, 844)
+    # },
+    # {
+    #     'name': 'iPhone 13 Pro (Chrome)',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/138.0.7151.107 Mobile/15E148 Safari/604.1',
+    #     'window_size': (390, 844)
+    # },
+    # {
+    #     'name': 'iPhone 13 Pro Max (Safari)',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1',
+    #     'window_size': (428, 926)
+    # },
+    # {
+    #     'name': 'iPhone 13 Pro Max (Chrome)',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/138.0.7151.107 Mobile/15E148 Safari/604.1',
+    #     'window_size': (428, 926)
+    # },
+    #
+    # # iPhone 14系列 - iOS 18.2
+    # {
+    #     'name': 'iPhone 14 (Safari)',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1',
+    #     'window_size': (393, 852)
+    # },
+    # {
+    #     'name': 'iPhone 14 (Chrome)',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/138.0.7151.107 Mobile/15E148 Safari/604.1',
+    #     'window_size': (393, 852)
+    # },
+    # {
+    #     'name': 'iPhone 14 Plus (Safari)',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1',
+    #     'window_size': (430, 932)
+    # },
+    # {
+    #     'name': 'iPhone 14 Plus (Chrome)',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/138.0.7151.107 Mobile/15E148 Safari/604.1',
+    #     'window_size': (430, 932)
+    # },
+    # {
+    #     'name': 'iPhone 14 Pro (Safari)',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1',
+    #     'window_size': (393, 852)
+    # },
+    # {
+    #     'name': 'iPhone 14 Pro (Chrome)',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/138.0.7151.107 Mobile/15E148 Safari/604.1',
+    #     'window_size': (393, 852)
+    # },
+    # {
+    #     'name': 'iPhone 14 Pro Max (Safari)',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1',
+    #     'window_size': (430, 932)
+    # },
+    # {
+    #     'name': 'iPhone 14 Pro Max (Chrome)',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/138.0.7151.107 Mobile/15E148 Safari/604.1',
+    #     'window_size': (430, 932)
+    # },
+    #
+    # # iPhone 15系列 - iOS 18.2
+    # {
+    #     'name': 'iPhone 15 (Safari)',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1',
+    #     'window_size': (393, 852)
+    # },
+    # {
+    #     'name': 'iPhone 15 (Chrome)',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/138.0.7151.107 Mobile/15E148 Safari/604.1',
+    #     'window_size': (393, 852)
+    # },
+    # {
+    #     'name': 'iPhone 15 Plus (Safari)',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1',
+    #     'window_size': (430, 932)
+    # },
+    # {
+    #     'name': 'iPhone 15 Plus (Chrome)',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/138.0.7151.107 Mobile/15E148 Safari/604.1',
+    #     'window_size': (430, 932)
+    # },
+    # {
+    #     'name': 'iPhone 15 Pro (Safari)',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1',
+    #     'window_size': (393, 852)
+    # },
+    # {
+    #     'name': 'iPhone 15 Pro (Chrome)',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/138.0.7151.107 Mobile/15E148 Safari/604.1',
+    #     'window_size': (393, 852)
+    # },
+    # {
+    #     'name': 'iPhone 15 Pro Max (Safari)',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1',
+    #     'window_size': (430, 932)
+    # },
+    # {
+    #     'name': 'iPhone 15 Pro Max (Chrome)',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/138.0.7151.107 Mobile/15E148 Safari/604.1',
+    #     'window_size': (430, 932)
+    # },
+    #
+    # # iPhone 16系列 - iOS 18.2
+    # {
+    #     'name': 'iPhone 16 (Safari)',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1',
+    #     'window_size': (393, 852)
+    # },
+    # {
+    #     'name': 'iPhone 16 (Chrome)',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/138.0.7151.107 Mobile/15E148 Safari/604.1',
+    #     'window_size': (393, 852)
+    # },
+    # {
+    #     'name': 'iPhone 16 Plus (Safari)',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1',
+    #     'window_size': (430, 932)
+    # },
+    # {
+    #     'name': 'iPhone 16 Plus (Chrome)',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/138.0.7151.107 Mobile/15E148 Safari/604.1',
+    #     'window_size': (430, 932)
+    # },
+    # {
+    #     'name': 'iPhone 16 Pro (Safari)',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1',
+    #     'window_size': (393, 852)
+    # },
+    # {
+    #     'name': 'iPhone 16 Pro (Chrome)',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/138.0.7151.107 Mobile/15E148 Safari/604.1',
+    #     'window_size': (393, 852)
+    # },
+    # {
+    #     'name': 'iPhone 16 Pro Max (Safari)',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1',
+    #     'window_size': (430, 932)
+    # },
+    # {
+    #     'name': 'iPhone 16 Pro Max (Chrome)',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/138.0.7151.107 Mobile/15E148 Safari/604.1',
+    #     'window_size': (430, 932)
+    # },
+    #
+    # # 保留原有的部分配置作为备用
+    # {
+    #     'name': 'iPhone 15 Pro Max',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
+    #     'window_size': (430, 932)
+    # },
+    # {
+    #     'name': 'iPhone 15 Pro Max',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/137.0.7151.107 Mobile/15E148 Safari/604.1',
+    #     'window_size': (430, 932)
+    # },
+    # {
+    #     'name': 'iPhone 15 Pro Max',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1',
+    #     'window_size': (430, 932)
+    # },
+    # {
+    #     'name': 'iPhone 15 Pro',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
+    #     'window_size': (393, 852)
+    # },
+    # {
+    #     'name': 'iPhone 15',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
+    #     'window_size': (393, 852)
+    # },
+    # {
+    #     'name': 'iPhone 15 Plus',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
+    #     'window_size': (430, 932)
+    # },
+    # {
+    #     'name': 'iPhone 14 Pro Max',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
+    #     'window_size': (430, 932)
+    # },
+    # {
+    #     'name': 'iPhone 14 Pro',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
+    #     'window_size': (393, 852)
+    # },
+    # {
+    #     'name': 'iPhone 14',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
+    #     'window_size': (393, 852)
+    # },
+    # {
+    #     'name': 'iPhone 14 Plus',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
+    #     'window_size': (430, 932)
+    # },
+    # {
+    #     'name': 'iPhone 13 Pro Max',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
+    #     'window_size': (428, 926)
+    # },
+    # {
+    #     'name': 'iPhone 13 Pro',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
+    #     'window_size': (390, 844)
+    # },
+    # {
+    #     'name': 'iPhone 13',
+    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
+    #     'window_size': (390, 844)
+    # },
+
+
     {
         # 真实 version 默认浏览器
         'name': 'iPhone 13',
@@ -497,81 +504,7 @@ IOS_DEVICES = [
         'window_size': (375, 812)
     },
 
-    # {
-    #     'name': 'iPhone 12 Pro Max',
-    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
-    #     'window_size': (428, 926)
-    # },
-    # {
-    #     'name': 'iPhone 12 Pro',
-    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
-    #     'window_size': (390, 844)
-    # },
-    # {
-    #     'name': 'iPhone 12',
-    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
-    #     'window_size': (390, 844)
-    # },
-    # {
-    #     'name': 'iPhone 12 mini',
-    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
-    #     'window_size': (375, 812)
-    # },
-    # {
-    #     'name': 'iPhone 11 Pro Max',
-    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
-    #     'window_size': (414, 896)
-    # },
-    # {
-    #     'name': 'iPhone 11 Pro',
-    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
-    #     'window_size': (375, 812)
-    # },
-    # {
-    #     'name': 'iPhone 11',
-    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
-    #     'window_size': (414, 896)
-    # },
-    # {
-    #     'name': 'iPhone XS Max',
-    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
-    #     'window_size': (414, 896)
-    # },
-    # {
-    #     'name': 'iPhone XS',
-    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
-    #     'window_size': (375, 812)
-    # },
-    # {
-    #     'name': 'iPhone XR',
-    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
-    #     'window_size': (414, 896)
-    # },
-    # {
-    #     'name': 'iPhone X',
-    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
-    #     'window_size': (375, 812)
-    # },
-    # {
-    #     'name': 'iPhone 8 Plus',
-    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
-    #     'window_size': (414, 736)
-    # },
-    # {
-    #     'name': 'iPhone 8',
-    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
-    #     'window_size': (375, 667)
-    # },
-    # {
-    #     'name': 'iPhone SE (3rd generation)',
-    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
-    #     'window_size': (375, 667)
-    # },
-    # {
-    #     'name': 'iPhone SE (2nd generation)',
-    #     'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
-    #     'window_size': (375, 667)
-    # }
+
 ]
 
 # iPad设备配置
@@ -612,34 +545,31 @@ IPAD_DEVICES = [
         'user_agent': 'Mozilla/5.0 (iPad; CPU OS 16_3_1 like Mac OS X; zh-CN) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/20D67 UCBrowser/17.1.5.7027 Mobile AliApp(TUnionSDK/0.1.20.4)',
         'window_size': (1080, 659)
     },
-    {
-        'name': 'iPad Pro 12.9-inch (6th generation)',
-        'user_agent': 'Mozilla/5.0 (iPad; CPU OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
-        'window_size': (1024, 1366)
-    },
-    {
-        'name': 'iPad Pro 11-inch (4th generation)',
-        'user_agent': 'Mozilla/5.0 (iPad; CPU OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
-        'window_size': (834, 1194)
-    },
-    {
-        'name': 'iPad Air (5th generation)',
-        'user_agent': 'Mozilla/5.0 (iPad; CPU OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
-        'window_size': (820, 1180)
-    },
-    {
-        'name': 'iPad (10th generation)',
-        'user_agent': 'Mozilla/5.0 (iPad; CPU OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
-        'window_size': (820, 1180)
-    },
-    {
-        'name': 'iPad (9th generation)',
-        'user_agent': 'Mozilla/5.0 (iPad; CPU OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
-        'window_size': (810, 1080)
-    },
+
+    # 先注释掉非真实的
     # {
-    #     'name': 'iPad mini (6th generation)',
+    #     'name': 'iPad Pro 12.9-inch (6th generation)',
     #     'user_agent': 'Mozilla/5.0 (iPad; CPU OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
-    #     'window_size': (768, 1024)
-    # }
+    #     'window_size': (1024, 1366)
+    # },
+    # {
+    #     'name': 'iPad Pro 11-inch (4th generation)',
+    #     'user_agent': 'Mozilla/5.0 (iPad; CPU OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
+    #     'window_size': (834, 1194)
+    # },
+    # {
+    #     'name': 'iPad Air (5th generation)',
+    #     'user_agent': 'Mozilla/5.0 (iPad; CPU OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
+    #     'window_size': (820, 1180)
+    # },
+    # {
+    #     'name': 'iPad (10th generation)',
+    #     'user_agent': 'Mozilla/5.0 (iPad; CPU OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
+    #     'window_size': (820, 1180)
+    # },
+    # {
+    #     'name': 'iPad (9th generation)',
+    #     'user_agent': 'Mozilla/5.0 (iPad; CPU OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1',
+    #     'window_size': (810, 1080)
+    # },
 ] 
