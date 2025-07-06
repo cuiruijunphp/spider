@@ -17,6 +17,9 @@ import hashlib
 from typing import Optional, Dict, List, Any, Tuple
 from DrissionPage import ChromiumPage, ChromiumOptions
 
+# 导入代理管理器
+from proxy_manager import ProxyManager
+
 # 添加配置文件路径
 sys.path.append(os.path.join(os.path.dirname(__file__), 'config'))
 from devices import PC_USER_AGENTS, ANDROID_DEVICES, IOS_DEVICES, IPAD_DEVICES
@@ -45,19 +48,32 @@ CONTENT_LOAD_TIMEOUT = 10
 LOOP_CONFIG = {
     'min_sleep': 10,  # 最小休眠时间（秒）
     'max_sleep': 30,  # 最大休眠时间（秒）
-    'max_loops': 20,   # 最大循环次数，0表示无限循环
+    'max_loops': 60,   # 最大循环次数，0表示无限循环
+}
+
+# 代理配置
+PROXY_CONFIG = {
+    'enabled': True,  # 是否启用代理
+    'username': 'd4476434639',  # 快代理用户名
+    'password': 'a34pvq6n',  # 快代理密码
+    'api_url': 'https://dps.kdlapi.com/api/getdps'  # 快代理API地址
 }
 
 class FinalAdSimulator:
     """最终版广告点击模拟器"""
     
-    def __init__(self, device_type: str = 'pc'):
+    def __init__(self, device_type: str = 'pc', proxy_config: Optional[Dict[str, Any]] = None):
         """初始化模拟器"""
         self.device_type = device_type
         self.page: Optional[ChromiumPage] = None
         self.ad_iframe_index: Optional[int] = None
         self.device_config = self._get_random_device_config()
         self.session_id = self._generate_session_id()  # 添加随机会话ID
+        self.proxy_config = proxy_config  # 代理配置（本次循环唯一）
+        self.current_proxy_ip = None
+        if proxy_config and 'proxy' in proxy_config:
+            self.current_proxy_ip = f"{proxy_config['proxy']['host']}:{proxy_config['proxy']['port']}"
+        self.proxy_manager = None  # 代理管理器
         self.setup_browser()
     
     def _generate_session_id(self) -> str:
@@ -112,6 +128,16 @@ class FinalAdSimulator:
             
             # 创建浏览器选项
             co = ChromiumOptions()
+
+            # 设置代理（如果启用）
+            if self.proxy_config:
+                from proxy_manager import ProxyManager
+                self.proxy_manager = ProxyManager(
+                    username=PROXY_CONFIG['username'],
+                    password=PROXY_CONFIG['password'],
+                    api_url=PROXY_CONFIG['api_url']
+                )
+                self.proxy_manager.apply_proxy_to_options(co, self.proxy_config)
             
             # 设置用户代理
             co.set_user_agent(self.device_config['user_agent'])
@@ -904,6 +930,13 @@ class FinalAdSimulator:
         logger.warning(f"⚠️ 新标签页在{timeout}秒内未加载完成")
         return False
     
+    def print_proxy_ip(self):
+        """打印当前循环使用的代理IP"""
+        if self.current_proxy_ip:
+            logger.info(f"🌐 当前循环使用代理IP: {self.current_proxy_ip}")
+        else:
+            logger.info("🌐 当前使用直连（无代理）")
+    
     def run_simulation(self) -> bool:
         """运行广告点击模拟"""
         if not self.page:
@@ -911,6 +944,7 @@ class FinalAdSimulator:
             return False
         try:
             logger.info("🚀 开始广告点击模拟...")
+            self.print_proxy_ip()
             # 1. 打开目标网站
             logger.info(f"打开目标网站: {TARGET_URL}")
             self.page.get(TARGET_URL)
@@ -952,6 +986,12 @@ class FinalAdSimulator:
             if self.page:
                 self.page.quit()
                 logger.info("✅ 浏览器已关闭")
+            
+            # 清理代理资源
+            if self.proxy_manager:
+                self.proxy_manager.cleanup()
+                logger.info("✅ 代理资源已清理")
+                
         except Exception as e:
             logger.error(f"❌ 关闭浏览器时出错: {e}")
 
@@ -977,12 +1017,34 @@ def main():
     else:
         logger.info("无限循环模式")
     
+    # 代理管理器（全局）
+    proxy_manager = None
+    if PROXY_CONFIG['enabled']:
+        proxy_manager = ProxyManager(
+            username=PROXY_CONFIG['username'],
+            password=PROXY_CONFIG['password'],
+            api_url=PROXY_CONFIG['api_url']
+        )
+        logger.info("✅ 代理管理器已初始化")
+    
     loop_count = 0
     
     while True:
         loop_count += 1
         logger.info(f"=" * 50)
         logger.info(f"开始第 {loop_count} 次循环")
+        
+        # 获取新的代理配置（每次循环使用新IP）
+        proxy_config = None
+        if proxy_manager:
+            try:
+                proxy_config = proxy_manager.get_new_proxy()
+                if proxy_config:
+                    logger.info(f"✅ 第 {loop_count} 次循环使用代理IP: {proxy_config['proxy']['host']}:{proxy_config['proxy']['port']}")
+                else:
+                    logger.warning("⚠️ 获取代理IP失败，将使用直连")
+            except Exception as e:
+                logger.error(f"❌ 获取代理IP时出错: {e}")
         
         # 随机选择设备类型
         if device_type == 'random':
@@ -993,8 +1055,8 @@ def main():
         
         simulator = None
         try:
-            # 创建模拟器实例
-            simulator = FinalAdSimulator(current_device)
+            # 创建模拟器实例（传入代理配置）
+            simulator = FinalAdSimulator(current_device, proxy_config)
             
             # 运行模拟
             success = simulator.run_simulation()
@@ -1024,6 +1086,11 @@ def main():
         sleep_time = random.uniform(LOOP_CONFIG['min_sleep'], LOOP_CONFIG['max_sleep'])
         logger.info(f"休眠 {sleep_time:.1f} 秒后开始下次循环...")
         time.sleep(sleep_time)
+    
+    # 清理代理管理器
+    if proxy_manager:
+        proxy_manager.cleanup()
+        logger.info("✅ 代理管理器已清理")
 
 if __name__ == "__main__":
     main() 
