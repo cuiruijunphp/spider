@@ -48,7 +48,7 @@ CONTENT_LOAD_TIMEOUT = 10
 LOOP_CONFIG = {
     'min_sleep': 10,  # 最小休眠时间（秒）
     'max_sleep': 30,  # 最大休眠时间（秒）
-    'max_loops': 60,   # 最大循环次数，0表示无限循环
+    'max_loops': 3,   # 最大循环次数，0表示无限循环
 }
 
 # 代理配置
@@ -120,12 +120,12 @@ class FinalAdSimulator:
                 'user_agent': random.choice(PC_USER_AGENTS),
                 'window_size': (1920, 1080)
             }
-    
+
     def setup_browser(self):
         """设置浏览器配置"""
         try:
             logger.info(f"开始初始化浏览器，设备类型: {self.device_type}, 设备: {self.device_config['name']}")
-            
+
             # 创建浏览器选项
             co = ChromiumOptions()
 
@@ -184,7 +184,10 @@ class FinalAdSimulator:
             self._inject_anti_detection_scripts()
             
             logger.info(f"✅ 浏览器初始化完成，设备类型: {self.device_type}, 设备: {self.device_config['name']}, 会话ID: {self.session_id}")
-            
+            # 增加user-agent日志打印
+            logger.info(f"user-agent:: {self.device_config['user_agent']}")
+            print(f"本次选择的user-agent: {self.device_config['user_agent']}")
+
         except Exception as e:
             logger.error(f"❌ 浏览器初始化失败: {e}")
             raise
@@ -937,11 +940,11 @@ class FinalAdSimulator:
         else:
             logger.info("🌐 当前使用直连（无代理）")
     
-    def run_simulation(self) -> bool:
-        """运行广告点击模拟"""
+    def run_simulation(self) -> tuple:
+        """运行广告点击模拟，返回(是否成功, 是否用户点击广告)"""
         if not self.page:
             logger.error("❌ 页面未初始化")
-            return False
+            return False, False
         try:
             logger.info("🚀 开始广告点击模拟...")
             self.print_proxy_ip()
@@ -957,28 +960,29 @@ class FinalAdSimulator:
             # 4. 等待广告iframe出现并包含内容
             if not self.wait_for_ad_frame_with_content():
                 logger.warning("⚠️ 未找到广告iframe")
-                return False
+                return False, False
             # 5. 再次模拟人类行为
             self.simulate_human_behavior()
             # 6. 用户选择是否点击广告（80%概率）
-            if random.random() < 0.8:
+            user_click = random.random() < 0.8
+            if user_click:
                 logger.info("用户选择点击广告")
                 # 7. 点击广告区域
                 if not self.click_ad_with_multiple_strategies():
                     logger.warning("⚠️ 广告点击失败")
-                    return False
+                    return False, True
                 # 8. 等待新标签页打开
                 if not self.wait_for_new_tab():
                     logger.warning("⚠️ 新标签页未打开")
-                    return False
+                    return False, True
                 logger.info("✅ 广告点击模拟成功完成")
-                return True
+                return True, True
             else:
                 logger.info("用户选择不点击广告")
-                return True
+                return False, False
         except Exception as e:
             logger.error(f"❌ 广告点击模拟过程中出错: {e}")
-            return False
+            return False, False
     
     def close(self):
         """关闭浏览器"""
@@ -1028,6 +1032,9 @@ def main():
         logger.info("✅ 代理管理器已初始化")
     
     loop_count = 0
+    # 新增：统计每种设备类型成功/失败次数
+    device_stats = {'pc': {'success': 0, 'fail': 0}, 'android': {'success': 0, 'fail': 0}, 'ios': {'success': 0, 'fail': 0}, 'ipad': {'success': 0, 'fail': 0}}
+    ad_click_count = 0
     
     while True:
         loop_count += 1
@@ -1041,6 +1048,26 @@ def main():
                 proxy_config = proxy_manager.get_new_proxy()
                 if proxy_config:
                     logger.info(f"✅ 第 {loop_count} 次循环使用代理IP: {proxy_config['proxy']['host']}:{proxy_config['proxy']['port']}")
+                    # 新增：检测IP是否被拉黑
+                    import requests
+                    def is_ip_blacklisted(ip):
+                        # 以ip-api.com为例，可换成其他第三方API
+                        try:
+                            resp = requests.get(f"http://ip-api.com/json/{ip}", timeout=8)
+                            if resp.status_code == 200:
+                                data = resp.json()
+                                # 你可以根据data内容自定义判断逻辑
+                                # 这里只是示例：如果被标记为"fail"或"blocked"等
+                                if data.get('status') == 'fail' or data.get('message', '').lower() in ['blocked', 'denied']:
+                                    return True
+                            # 你也可以用其他API返回的黑名单字段
+                        except Exception as e:
+                            logger.warning(f"检测IP黑名单API异常: {e}")
+                        return False
+                    ip = proxy_config['proxy']['host']
+                    if is_ip_blacklisted(ip):
+                        logger.warning(f"⚠️ 代理IP {ip} 被第三方API检测为黑名单，跳过本次循环")
+                        continue
                 else:
                     logger.warning("⚠️ 获取代理IP失败，将使用直连")
             except Exception as e:
@@ -1052,37 +1079,43 @@ def main():
             logger.info(f"随机选择设备类型: {current_device}")
         else:
             current_device = device_type
-        
-        simulator = None
-        try:
-            # 创建模拟器实例（传入代理配置）
-            simulator = FinalAdSimulator(current_device, proxy_config)
-            
-            # 运行模拟
-            success = simulator.run_simulation()
-            
-            if success:
-                logger.info(f"🎉 第 {loop_count} 次循环完成")
-            else:
-                logger.warning(f"⚠️ 第 {loop_count} 次循环未完全成功")
-            
-            # 等待一段时间
-            time.sleep(5)
-            
-        except Exception as e:
-            logger.error(f"❌ 第 {loop_count} 次循环执行出错: {e}")
-        
-        finally:
-            # 确保浏览器被关闭
-            if simulator:
-                simulator.close()
-        
-        # 检查是否达到最大循环次数
+        # 统计设备类型
+        if current_device in device_stats:
+            simulator = None
+            try:
+                # 创建模拟器实例（传入代理配置）
+                simulator = FinalAdSimulator(current_device, proxy_config)
+                # 运行模拟
+                success, user_click = simulator.run_simulation()
+                if success:
+                    device_stats[current_device]['success'] += 1
+                else:
+                    device_stats[current_device]['fail'] += 1
+                if user_click:
+                    ad_click_count += 1
+                if success:
+                    logger.info(f"🎉 第 {loop_count} 次循环完成")
+                else:
+                    logger.warning(f"⚠️ 第 {loop_count} 次循环未完全成功")
+                time.sleep(5)
+            except Exception as e:
+                logger.error(f"❌ 第 {loop_count} 次循环执行出错: {e}")
+            finally:
+                if simulator:
+                    simulator.close()
         if LOOP_CONFIG['max_loops'] > 0 and loop_count >= LOOP_CONFIG['max_loops']:
             logger.info(f"达到最大循环次数 {LOOP_CONFIG['max_loops']}，程序结束")
+            logger.info("\n===== 统计结果 =====")
+            logger.info("各设备类型执行成功/失败次数：")
+            for dev, cnts in device_stats.items():
+                logger.info(f"  {dev}: 成功 {cnts['success']} 次，失败 {cnts['fail']} 次")
+            logger.info(f"用户点击广告次数: {ad_click_count} 次")
+            print("\n===== 统计结果 =====")
+            print("各设备类型执行成功/失败次数：")
+            for dev, cnts in device_stats.items():
+                print(f"  {dev}: 成功 {cnts['success']} 次，失败 {cnts['fail']} 次")
+            print(f"用户点击广告次数: {ad_click_count} 次")
             break
-        
-        # 随机休眠
         sleep_time = random.uniform(LOOP_CONFIG['min_sleep'], LOOP_CONFIG['max_sleep'])
         logger.info(f"休眠 {sleep_time:.1f} 秒后开始下次循环...")
         time.sleep(sleep_time)
